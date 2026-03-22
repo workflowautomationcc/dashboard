@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Projects</h1>
+
+  <h2 id="selected-project">Select a project</h2>
+
+  <div id="project-list"></div>
+
+  <div id="project-data"></div>
+
+  <script>
+    fetch("/projects")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("project-list");
+        const selected = document.getElementById("selected-project");
+        const projectData = document.getElementById("project-data");
+
+        data.forEach(project => {
+          const button = document.createElement("button");
+          button.textContent = project.id;
+
+          button.onclick = () => {
+            selected.textContent = "Selected: " + project.id;
+
+            fetch("/stats/" + project.id)
+              .then(res => res.json())
+              .then(data => {
+                projectData.innerHTML = `
+                  <p><strong>Project:</strong> ${data.project}</p>
+                  <p><strong>Status:</strong> ${data.message}</p>
+                `;
+              });
+          };
+
+          container.appendChild(button);
+        });
+      });
+  </script>
+</body>
+</html>
