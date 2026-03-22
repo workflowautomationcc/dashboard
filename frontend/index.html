@@ -32,7 +32,8 @@
               .then(data => {
                 projectData.innerHTML = `
                   <p><strong>Project:</strong> ${data.project}</p>
-                  <p><strong>Status:</strong> ${data.message}</p>
+                  <p><strong>Total Success:</strong> ${data.success}</p>
+                  <p><strong>Last 24h:</strong> ${data.last24h}</p>
                 `;
               });
           };
