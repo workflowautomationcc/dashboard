@@ -30,11 +30,25 @@
             fetch("/stats/" + project.id)
               .then(res => res.json())
               .then(data => {
-                projectData.innerHTML = `
-                  <p><strong>Project:</strong> ${data.project}</p>
-                  <p><strong>Total Success:</strong> ${data.success}</p>
-                  <p><strong>Last 24h:</strong> ${data.last24h}</p>
-                `;
+
+                if (project.id === "email-outreach-system") {
+                  projectData.innerHTML = `
+                    <p><strong>Sent (Total):</strong> ${data.sentTotal}</p>
+                    <p><strong>Sent (Week):</strong> ${data.sentWeek}</p>
+                    <p><strong>Sent (Month):</strong> ${data.sentMonth}</p>
+
+                    <p><strong>Replies (Total):</strong> ${data.replyTotal}</p>
+                    <p><strong>Replies (Week):</strong> ${data.replyWeek}</p>
+                    <p><strong>Replies (Month):</strong> ${data.replyMonth}</p>
+                  `;
+                } else {
+                  projectData.innerHTML = `
+                    <p><strong>Project:</strong> ${data.project}</p>
+                    <p><strong>Total Success:</strong> ${data.success}</p>
+                    <p><strong>Last 24h:</strong> ${data.last24h}</p>
+                  `;
+                }
+
               });
           };
 
